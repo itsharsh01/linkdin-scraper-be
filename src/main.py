@@ -4,15 +4,15 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.api.routes.apify_scrape import router as apify_scrape_router
-from src.api.routes.bylines import router as bylines_router
-from src.api.routes.byline_pipeline import router as byline_pipeline_router
-from src.api.routes.health import router as health_router
-from src.api.routes.sources import router as sources_router
-from src.api.routes.users import router as users_router
-from src.core.config import settings
-from src.db.mongo import close_mongo_connection, connect_to_mongo, ensure_indexes, ping_database
-from src.jobs.scheduler import shutdown_scheduler, start_scheduler
+from api.routes.apify_scrape import router as apify_scrape_router
+from api.routes.bylines import router as bylines_router
+from api.routes.byline_pipeline import router as byline_pipeline_router
+from api.routes.health import router as health_router
+from api.routes.sources import router as sources_router
+from api.routes.users import router as users_router
+from core.config import settings
+from db.mongo import close_mongo_connection, connect_to_mongo, ensure_indexes, ping_database
+from jobs.scheduler import shutdown_scheduler, start_scheduler
 
 logger = logging.getLogger(__name__)
 
