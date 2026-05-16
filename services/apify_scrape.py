@@ -63,6 +63,8 @@ def _byline_document(user_id: str, source_url: str, byline: AuthorByline) -> dic
         "authorName": byline.authorName,
         "status": False,
         "llm_response": None,
+        "detected_emails": [],
+        "detected_email": None,
     }
 
 

@@ -7,6 +7,7 @@ from uuid import UUID
 
 from db.mongo import get_database
 from services.apify_scrape import BYLINE_COLLECTION
+from utils.email_extract import resolve_contact_for_outreach
 from utils.linkedin_match_parse import parse_job_match_llm_output
 from utils.llm_fallback import generate_llm_text
 
@@ -34,31 +35,21 @@ My Resume & Skills:
 {RESUME_SKILLS_BLOCK}
 
 Instructions:
-1. Look carefully for a contact method in the post. It may appear as:
-   - An explicit email address (e.g. jobs@company.com)
-   - Phrases like "DM me", "send me a DM", "message me", "reach out", "drop a message",
-     "connect with me", "send your resume/CV", "apply via LinkedIn", "comment below", etc.
-   If a real email address is present, extract it.
-   If only DM / LinkedIn message / "reach out" is mentioned (no email), set Email to "LinkedIn DM".
-   If no contact method at all is found, leave Email blank.
-2. Extract the key job requirements from the post.
-3. Score the match between the JD and my skills (0–100) with a one-line reason.
-4. If score ≥ 60, write a short professional cold email / LinkedIn message (max 120 words) that:
+1. Extract the key job requirements from the post.
+2. Score the match between the JD and my skills (0–100) with a one-line reason.
+3. If score ≥ 60, write a short professional cold email / LinkedIn message (max 120 words) that:
    - Opens with the specific role/company
    - Highlights 2–3 directly relevant skills/projects
    - Mentions fine-tuning, knowledge graphs, and page indexes naturally if relevant
-   - If the contact method is "LinkedIn DM", keep the tone conversational (it will be sent as a DM)
-   - If it is an email, keep it formal and end with: "Resume attached for your reference."
-   - Has a compelling subject line (use "LinkedIn DM" as subject when the channel is DM)
+   - Ends with: "Resume attached for your reference." when writing a formal email
+   - Has a compelling subject line
 
 Output format:
 Match Score: [ X ]
 
 Reason of score: [ One line ]
 
-Email: [extracted email, "LinkedIn DM", or "Not found"]
-
-Subject: [subject line or "LinkedIn DM"]
+Subject: [subject line]
 
 [email / DM body].
 """
@@ -101,6 +92,8 @@ def process_pending_bylines_with_llm(user_id: UUID) -> dict[str, int]:
                 {"_id": doc_id, "status": False},
                 {
                     "$set": {
+                        "detected_emails": [],
+                        "detected_email": None,
                         "llm_response": {
                             "score": None,
                             "reason": "No post text to analyze.",
@@ -115,6 +108,18 @@ def process_pending_bylines_with_llm(user_id: UUID) -> dict[str, int]:
             )
             processed += 1
             continue
+
+        detected_emails, outreach_email = resolve_contact_for_outreach(post_text)
+        col.update_one(
+            {"_id": doc_id, "status": False},
+            {
+                "$set": {
+                    "detected_emails": detected_emails,
+                    "detected_email": detected_emails[0] if detected_emails else None,
+                    "email_detected_at": _utcnow(),
+                }
+            },
+        )
 
         prompt = build_linkedin_job_match_prompt(post_text)
 
@@ -133,7 +138,7 @@ def process_pending_bylines_with_llm(user_id: UUID) -> dict[str, int]:
         llm_response = {
             "score": parsed.get("score"),
             "reason": parsed.get("reason") or "",
-            "email": parsed.get("email") or "",
+            "email": outreach_email,
             "content": parsed.get("content") or "",
         }
 
@@ -142,6 +147,8 @@ def process_pending_bylines_with_llm(user_id: UUID) -> dict[str, int]:
             {
                 "$set": {
                     "llm_response": llm_response,
+                    "detected_emails": detected_emails,
+                    "detected_email": detected_emails[0] if detected_emails else None,
                     "status": False,
                     "llm_processed_at": _utcnow(),
                     "llm_last_error": None,

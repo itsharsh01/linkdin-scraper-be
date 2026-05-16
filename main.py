@@ -9,6 +9,7 @@ from api.routes.bylines import router as bylines_router
 from api.routes.byline_pipeline import router as byline_pipeline_router
 from api.routes.health import router as health_router
 from api.routes.sources import router as sources_router
+from api.routes.template_email import router as template_email_router
 from api.routes.users import router as users_router
 from core.config import settings
 from db.mongo import close_mongo_connection, connect_to_mongo, ensure_indexes, ping_database
@@ -46,6 +47,9 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:8501",
         "http://127.0.0.1:8501",
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+        "null",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -57,6 +61,7 @@ app.include_router(sources_router)
 app.include_router(bylines_router)
 app.include_router(apify_scrape_router)
 app.include_router(byline_pipeline_router)
+app.include_router(template_email_router)
 
 
 if __name__ == "__main__":

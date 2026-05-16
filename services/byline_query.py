@@ -43,6 +43,8 @@ def _serialize_byline(doc: dict[str, Any]) -> dict[str, Any]:
         "author_name": doc.get("authorName"),
         "status": doc.get("status"),
         "email_skip_reason": doc.get("email_skip_reason"),
+        "detected_emails": doc.get("detected_emails") if isinstance(doc.get("detected_emails"), list) else [],
+        "detected_email": doc.get("detected_email"),
         "llm_response": llm,
     }
 

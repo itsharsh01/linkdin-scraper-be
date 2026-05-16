@@ -94,7 +94,7 @@ def send_byline_outreach_emails(user_id: UUID) -> dict[str, int]:
         if not isinstance(llm, dict):
             continue
 
-        raw_email_field = (llm.get("email") or "").strip()
+        raw_email_field = (llm.get("email") or doc.get("detected_email") or "").strip()
         is_dm_channel = raw_email_field.lower() == "linkedin dm"
         recipient = None if is_dm_channel else _valid_recipient_email(raw_email_field)
         content = llm.get("content") if isinstance(llm.get("content"), str) else ""
