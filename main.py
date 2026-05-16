@@ -57,3 +57,14 @@ app.include_router(sources_router)
 app.include_router(bylines_router)
 app.include_router(apify_scrape_router)
 app.include_router(byline_pipeline_router)
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+    )

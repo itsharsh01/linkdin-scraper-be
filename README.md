@@ -13,8 +13,16 @@ copy .env.example .env   # fill in secrets
 
 ## Run
 
+From the **backend** directory (`main.py` is at the project root, not under `src/`):
+
 ```bash
-python -m uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Or:
+
+```bash
+python main.py
 ```
 
 API docs: http://127.0.0.1:8000/docs
