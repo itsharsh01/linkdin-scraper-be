@@ -3,8 +3,8 @@ from uuid import uuid4
 from fastapi import APIRouter, HTTPException, status
 from pymongo.errors import DuplicateKeyError
 
-from src.db.mongo import get_database
-from src.schemas.source import SourceCreate, SourceSchema
+from db.mongo import get_database
+from schemas.source import SourceCreate, SourceSchema
 
 router = APIRouter(prefix="/sources", tags=["sources"])
 

@@ -9,9 +9,9 @@ from uuid import UUID
 
 from pydantic import EmailStr, TypeAdapter, ValidationError
 
-from src.core.config import settings
-from src.db.mongo import get_database
-from src.services.apify_scrape import BYLINE_COLLECTION
+from core.config import settings
+from db.mongo import get_database
+from services.apify_scrape import BYLINE_COLLECTION
 
 logger = logging.getLogger(__name__)
 

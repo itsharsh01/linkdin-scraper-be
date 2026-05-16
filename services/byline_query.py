@@ -7,9 +7,9 @@ from zoneinfo import ZoneInfo
 
 from bson import ObjectId
 
-from src.core.config import settings
-from src.db.mongo import get_database
-from src.services.apify_scrape import BYLINE_COLLECTION
+from core.config import settings
+from db.mongo import get_database
+from services.apify_scrape import BYLINE_COLLECTION
 
 
 def _day_range_utc(day: date, tz_name: str) -> tuple[datetime, datetime]:

@@ -2,10 +2,10 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, status
 
-from src.db.mongo import get_database
-from src.schemas.pipeline import EmailBatchResponse, LlmBatchResponse
-from src.services.byline_outreach_email import send_byline_outreach_emails
-from src.services.linkedin_post_llm_pipeline import process_pending_bylines_with_llm
+from db.mongo import get_database
+from schemas.pipeline import EmailBatchResponse, LlmBatchResponse
+from services.byline_outreach_email import send_byline_outreach_emails
+from services.linkedin_post_llm_pipeline import process_pending_bylines_with_llm
 
 router = APIRouter(prefix="/users", tags=["byline-pipeline"])
 

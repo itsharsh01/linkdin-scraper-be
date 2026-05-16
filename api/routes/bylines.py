@@ -3,9 +3,9 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Query, status
 
-from src.db.mongo import get_database
-from src.schemas.byline import BylineListItem, BylineListResponse
-from src.services.byline_query import list_bylines_for_user_on_date
+from db.mongo import get_database
+from schemas.byline import BylineListItem, BylineListResponse
+from services.byline_query import list_bylines_for_user_on_date
 
 router = APIRouter(prefix="/users", tags=["bylines"])
 

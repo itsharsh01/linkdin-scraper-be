@@ -7,8 +7,8 @@ from zoneinfo import ZoneInfo
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 
-from src.core.config import settings
-from src.services.scheduled_pipeline import run_scheduled_scrape_and_llm_for_user
+from core.config import settings
+from services.scheduled_pipeline import run_scheduled_scrape_and_llm_for_user
 
 logger = logging.getLogger(__name__)
 

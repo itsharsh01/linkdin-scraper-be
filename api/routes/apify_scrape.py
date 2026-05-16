@@ -2,8 +2,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, status
 
-from src.schemas.apify_scrape import ApifyScrapeRequest, ApifyScrapeResponse
-from src.services.apify_scrape import run_apify_scrape_for_user
+from schemas.apify_scrape import ApifyScrapeRequest, ApifyScrapeResponse
+from services.apify_scrape import run_apify_scrape_for_user
 
 router = APIRouter(prefix="/users", tags=["linkedin-apify-scrape"])
 

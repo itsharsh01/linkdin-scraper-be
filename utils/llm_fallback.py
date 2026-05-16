@@ -7,7 +7,7 @@ GROQ_LLM_MODEL.
 
 Use from any service:
 
-    from src.utils.llm_fallback import generate_llm_text
+    from utils.llm_fallback import generate_llm_text
 
     text = generate_llm_text("Your prompt here")
 """
@@ -17,7 +17,7 @@ from __future__ import annotations
 import logging
 from typing import Callable
 
-from src.core.config import settings
+from core.config import settings
 
 logger = logging.getLogger(__name__)
 

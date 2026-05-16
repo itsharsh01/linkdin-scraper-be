@@ -3,10 +3,10 @@ from __future__ import annotations
 import logging
 from uuid import UUID
 
-from src.core.config import settings
-from src.services.apify_scrape import run_apify_scrape_for_user
-from src.services.byline_outreach_email import send_byline_outreach_emails
-from src.services.linkedin_post_llm_pipeline import process_pending_bylines_with_llm
+from core.config import settings
+from services.apify_scrape import run_apify_scrape_for_user
+from services.byline_outreach_email import send_byline_outreach_emails
+from services.linkedin_post_llm_pipeline import process_pending_bylines_with_llm
 
 logger = logging.getLogger(__name__)
 

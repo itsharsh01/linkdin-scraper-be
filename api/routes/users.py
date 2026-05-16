@@ -3,8 +3,8 @@ from uuid import UUID, uuid4
 from fastapi import APIRouter, HTTPException, status
 from pymongo.errors import DuplicateKeyError
 
-from src.db.mongo import get_database
-from src.schemas.user import UserCreate, UserSchema
+from db.mongo import get_database
+from schemas.user import UserCreate, UserSchema
 
 router = APIRouter(prefix="/users", tags=["users"])
 

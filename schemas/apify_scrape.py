@@ -3,7 +3,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
-from src.core.config import settings
+from core.config import settings
 
 
 class ApifyScrapeRequest(BaseModel):

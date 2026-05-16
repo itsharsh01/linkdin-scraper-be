@@ -13,7 +13,7 @@ copy .env.example .env   # fill in secrets
 
 ## Run
 
-From the **backend** directory (`main.py` is at the project root, not under `src/`):
+From the **backend** directory (`main.py` at project root; packages `api/`, `core/`, `db/`, etc. — no `src/` folder):
 
 ```bash
 python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000

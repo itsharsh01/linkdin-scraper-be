@@ -7,9 +7,9 @@ from uuid import UUID
 
 from apify_client import ApifyClient
 
-from src.core.config import settings
-from src.db.mongo import get_database
-from src.schemas.apify_scrape import ApifyScrapeResponse, AuthorByline, SourceScrapeOutcome
+from core.config import settings
+from db.mongo import get_database
+from schemas.apify_scrape import ApifyScrapeResponse, AuthorByline, SourceScrapeOutcome
 
 logger = logging.getLogger(__name__)
 

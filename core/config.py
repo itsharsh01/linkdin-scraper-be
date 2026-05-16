@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 def load_env_file() -> None:
-    env_path = Path(__file__).resolve().parents[2] / ".env"
+    env_path = Path(__file__).resolve().parent.parent / ".env"
     if not env_path.exists():
         return
 

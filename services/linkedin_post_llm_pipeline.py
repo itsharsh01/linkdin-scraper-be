@@ -5,10 +5,10 @@ from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID
 
-from src.db.mongo import get_database
-from src.services.apify_scrape import BYLINE_COLLECTION
-from src.utils.linkedin_match_parse import parse_job_match_llm_output
-from src.utils.llm_fallback import generate_llm_text
+from db.mongo import get_database
+from services.apify_scrape import BYLINE_COLLECTION
+from utils.linkedin_match_parse import parse_job_match_llm_output
+from utils.llm_fallback import generate_llm_text
 
 logger = logging.getLogger(__name__)
 
