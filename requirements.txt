@@ -1,0 +1,10 @@
+apify-client
+apscheduler
+email-validator
+fastapi
+google-genai
+groq
+openai
+pymongo[srv]
+tzdata
+uvicorn
